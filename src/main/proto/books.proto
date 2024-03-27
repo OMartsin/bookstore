@@ -1,0 +1,46 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc.book";
+option java_outer_classname = "BookProto";
+
+package book;
+
+// The book service definition.
+service BookService {
+  rpc AddBook (BookRequest) returns (BookID) {}
+  rpc UpdateBook (BookRequest) returns (BookResponse) {}
+  rpc DeleteBook (BookID) returns (google.protobuf.Empty) {}
+  rpc GetBook (BookID) returns (BookResponse) {}
+  rpc ListBooks (google.protobuf.Empty) returns (BookList) {}
+}
+
+// The request and response messages
+message BookRequest {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  string isbn = 4;
+  int32 quantity = 5;
+}
+
+message BookResponse {
+  int32 id = 1;
+  string title = 2;
+  string author = 3;
+  string isbn = 4;
+  int32 quantity = 5;
+}
+
+message ErrorResponse {
+  string message = 1;
+}
+
+message BookID {
+  int32 id = 1;
+}
+
+message BookList {
+  repeated BookResponse books = 1;
+}
